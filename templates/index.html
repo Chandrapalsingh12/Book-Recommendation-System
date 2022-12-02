@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book-Store</title>
+  <link rel="stylesheet" href="static/style.css">
+
+  <!-- Fonts...... -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
+    <!-- AJAX -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <link
+      href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+  <!-- Google icons  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="nav-bar">
+    <div class="nav1">
+      <!-- <a href="">Browse Categories</a> -->
+      <form action={{ url_for("recommended") }} method="post">
+          <input type="text" id="tags" name="bname" placeholder="Search Book">
+          <input type="submit">
+      </form>
+    </div>
+    <div class="icon-about">
+        <h1>Book-Store</h1>
+      <!-- <i class="material-icons"><span class="material-icons-outlined">account_circle</span></i>
+      <a href="">About-Us</a> -->
+    </div>
+
+  </nav>
+
+  <header style="font-size: xx-large;text-align: center;">Top 50 Books</header>
+  <main>
+    {% for i in range(book_title|length) %}
+    <div class="books">
+      <div>
+        <img src={{img_url[i]}} alt="Image" class="book-img">
+      </div>
+      <div class="descp">
+        <h2 class="book-name">{{book_title[i]}}</h2>
+        <h3 class="author"><span style="font-weight: bold;">Author:</span> {{book_author[i]}}</h3>
+        <h3 class="rating">{{rating[i]}} rating</h3>
+      </div>
+    </div>
+    {% endfor %}
+
+
+  </main>
+
+
+  <script>
+    $( function() {
+      var availableTags = [
+          {% for i in book_name %}
+              "{{i}}",
+          {% endfor %}
+      ];
+      $( "#tags" ).autocomplete({
+        source: availableTags
+      });
+    } );
+
+   
+  </script>
+
+</body>
+
+</html>
